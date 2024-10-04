@@ -22,5 +22,5 @@ handler.on('error', err => {
 // handler.on('*') 所有的行为
 handler.on('push', event => {
     console.log('Revice push', event.payload )
-    console.log(3)
+    console.log(4)
 })
