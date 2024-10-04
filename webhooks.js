@@ -38,7 +38,7 @@ handler.on('push', event => {
     //     console.log(text)
     // })
     // dev 分支触发
-    if(event.payload.ref === 'refs/heads/develop') {
+    if(event.payload.ref === 'refs/heads/master') {
         console.log('Revice push' )
         run_cmd('sh', ['./deploy-dev.sh'], function(text){
             console.log(text)
