@@ -1,0 +1,28 @@
+version: '3.1'
+services:
+  app-pm2:
+      container_name: app-pm2
+      #构建容器
+      #实际上build的是 ./backend/Dockerfile, 
+      # app-pm2容器实际上使用的是 ./backend/Dockerfile 镜像
+      build: ./backend
+      ports:
+        - "3000:3000"
+  nginx:
+    restart: always
+    image: nginx
+    ports:
+      - 8091:80
+    volumes:
+      - ./nginx/conf.d/:/etc/nginx/conf.d
+      - ./frontend/dist:/var/www/html/
+      - ./static/:/static/
+  #nginx\conf.d\docker.conf ->proxy_pass http:app-pm2:3000;
+  
+  # 在docker-compose里面 如果想访问mongo这样的容器的话域名跟实例名一样就可以
+  # backend\models\conf.js -> url: "mongodb://mongo:27017",
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
